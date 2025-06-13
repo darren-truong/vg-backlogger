@@ -1,36 +1,23 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## VG Backlogger
 
-## Getting Started
+VG (Video Game) Backlogger is a program designed to help users track video games that interest them!
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## To-Do List
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- [ ] **Add video game entries**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+  - Users can add video game titles to their personal list.
+  - User lists are organized into four sections: Completed, Currently Playing, In Backlog, or Dropped.
+  - Implement CRUD: Create, Read, Update, Delete operations for game entries.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- [ ] **Track game progress**
 
-## Learn More
+  - Users can move games between list sections.
 
-To learn more about Next.js, take a look at the following resources:
+- [ ] **AI-powered recommendations**
+  - Enable AI suggestions when users reach a minimum game threshold in their list.
+  - Recommendations are based on existing preferences and play history.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+> **Note:** This list represents core features and may expand with additional functionality in future iterations.
