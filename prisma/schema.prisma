@@ -1,0 +1,121 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id
+  name          String
+  email         String
+  emailVerified Boolean
+  image         String?
+  createdAt     DateTime
+  updatedAt     DateTime
+  sessions      Session[]
+  accounts      Account[]
+
+  @@unique([email])
+  @@map("user")
+}
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String
+  createdAt DateTime
+  updatedAt DateTime
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([token])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime
+  updatedAt             DateTime
+
+  @@map("account")
+}
+
+model Verification {
+  id         String    @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime?
+  updatedAt  DateTime?
+
+  @@map("verification")
+}
+
+enum GameStatus {
+  COMPLETED
+  DROPPED
+  BACKLOG
+  PLAYING
+}
+
+enum PrivacyStatus {
+  PUBLIC
+  PRIVATE
+}
+
+model Profile {
+  id            String         @id
+  displayName   String         @unique
+  privacyStatus PrivacyStatus
+  profileGames  ProfileGame[]
+
+  @@map("app_profiles")
+}
+
+model Game {
+  id           Int            @id @default(autoincrement())
+  title        String         @unique
+  releaseYear  Int
+  genres       Genre[]        @relation("GameToGenre")
+  profileGames ProfileGame[]
+
+  @@map("app_games")
+}
+
+model Genre {
+  id    Int     @id @default(autoincrement())
+  name  String  @unique
+  games Game[]  @relation("GameToGenre")
+
+  @@map("app_genres")
+}
+
+model ProfileGame {
+  profile   Profile  @relation(fields: [profileId], references: [id], onDelete: Cascade)
+  profileId String
+  game      Game     @relation(fields: [gameId], references: [id])
+  gameId    Int
+  status    GameStatus
+  comment   String?
+  rating    Int?
+
+  @@id([profileId, gameId])
+  @@map("app_profile_games")
+}
